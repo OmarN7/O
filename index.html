@@ -4,27 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جاري تحويلك للفيلم...</title>
-    
-    <!-- ضَع كود الـ Tag من Monetag تحت هذا السطر -->
-    <script src='//libtl.com/sdk.js' data-zone='10941580' data-sdk='show_10941580'></script>
+    <script src='//://libti.com' data-zone='10941580'></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
-
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
         <h2>جاري تحضير سيرفر المشاهدة...</h2>
         <p style="color: #bbb;">اضغط على الزر بالأسفل للبدء</p>
-        
         <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
             مشاهدة الفيلم الآن
         </button>
     </div>
-
     <script>
         document.getElementById('showAdBtn').onclick = function() {
-            // ضَع كود الـ Function الخاص بـ Monetag هناshow_10941580();
-            
-            // استبدل الرابط أدناه برابط الفيلم الأصلي
-            window.location.href = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9?authuser=0"; 
+            show_10941580().then(() => {
+                window.location.href = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
+            }).catch((e) => {
+                window.location.href = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
+            });
         };
     </script>
 </body>
