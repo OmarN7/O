@@ -4,24 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جاري تحويلك للفيلم...</title>
+    <!-- كود الـ Tag من Monetag -->
     <script src='//://libti.com' data-zone='10941580'></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
+
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
         <h2>جاري تحضير سيرفر المشاهدة...</h2>
         <p style="color: #bbb;">اضغط على الزر بالأسفل للبدء</p>
+        
         <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
             مشاهدة الفيلم الآن
         </button>
     </div>
+
     <script>
+        // الرابط الخاص بموقعك
+        var targetUrl = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
+
         document.getElementById('showAdBtn').onclick = function() {
-            show_10941580().then(() => {
-                window.location.href = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
-            }).catch((e) => {
-                window.location.href = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
-            });
+            // محاولة تشغيل الإعلان
+            if (typeof show_10941580 === 'function') {
+                show_10941580().then(function() {
+                    window.location.href = targetUrl;
+                }).catch(function(e) {
+                    window.location.href = targetUrl;
+                });
+            } else {
+                // إذا لم يتحمل كود الإعلان يتم التحويل فوراً
+                window.location.href = targetUrl;
+            }
         };
     </script>
+
 </body>
 </html>
