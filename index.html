@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جاري التحويل...</title>
-    <!-- كود Monetag المطور لضمان ظهور الإعلانات -->
+    <!-- كود Monetag -->
     <script src="https://libti.com" data-zone="10941580" data-cfasync="false"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
@@ -13,37 +13,30 @@
         <h2 id="statusText">جاري تحضير السيرفر...</h2>
         <p style="color: #bbb;">اضغط على الزر بالأسفل للبدء</p>
         
-        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
             مشاهدة الآن
         </button>
     </div>
 
     <script>
-        // دالة لجلب الرابط من التيلجرام وتحويل المشاهد
-        function getTargetUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            let encodedUrl = urlParams.get('startapp'); 
-            
-            if (encodedUrl) {
-                let cleanUrl = encodedUrl.replace('url_', '');
-                return cleanUrl.startsWith('http') ? cleanUrl : "https://" + cleanUrl;
-            }
-            // رابط التيلي بوكس الخاص بك الذي أرسلته
-            return "https://lbx.zone/i/kltW68e"; 
-        }
+        // الرابط اللي بدك الناس تروح عليه (Telebox)
+        var myFinalLink = "https://lbx.zone";
 
         document.getElementById('showAdBtn').onclick = function() {
-            const finalUrl = getTargetUrl();
             document.getElementById('statusText').innerText = "جاري تشغيل الإعلان...";
 
+            // محاولة تشغيل الإعلان
             if (typeof show_10941580 === 'function') {
-                show_10941580().then(() => {
-                    window.location.href = finalUrl;
-                }).catch(() => {
-                    window.location.href = finalUrl;
+                show_10941580().then(function() {
+                    // بعد الإعلان يروح للتيلي بوكس
+                    window.location.href = myFinalLink;
+                }).catch(function() {
+                    // لو فشل الإعلان يروح للتيلي بوكس
+                    window.location.href = myFinalLink;
                 });
             } else {
-                window.location.href = finalUrl;
+                // لو الكود ما حمل أصلاً يروح للتيلي بوكس
+                window.location.href = myFinalLink;
             }
         };
     </script>
