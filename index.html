@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جاري تحضير السيرفر...</title>
-    <!-- كود Monetag الأصلي الخاص بك -->
+    <!-- كود Monetag -->
     <script src="https://libti.com" data-zone="10941580" data-cfasync="false"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
@@ -22,12 +22,15 @@
             const params = new URLSearchParams(window.location.search);
             const startApp = params.get('startapp');
             if (startApp && startApp.startsWith('url_')) {
-                // تبديل @@ إلى / ليعمل الرابط بشكل صحيح
+                // تبديل @@ إلى / وتصحيح الرابط
                 let cleanLink = startApp.replace('url_', '').replace(/@@/g, '/');
-                return cleanLink.startsWith('http') ? cleanLink : 'https://' + cleanLink;
+                if (!cleanLink.startsWith('http')) {
+                    cleanLink = 'https://' + cleanLink;
+                }
+                return cleanLink;
             }
-            // الرابط الاحتياطي لـ Telebox إذا لم يرسل البوت رابطاً محدداً
-            return "https://telebox.com"; 
+            // الرابط الاحتياطي الآمن (استخدمنا lbx.zone لتجنب خطأ الحماية)
+            return "https://lbx.zone"; 
         }
 
         document.getElementById('showAdBtn').onclick = function() {
