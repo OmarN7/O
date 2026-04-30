@@ -3,46 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جاري تحضير السيرفر...</title>
-    <!-- كود Monetag - تأكد من رقم المنطقة 10941580 -->
+    <title>جاري التحويل...</title>
     <script src="https://libti.com" data-zone="10941580" data-cfasync="false"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
 
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
-        <h2 id="statusText">جاري فحص سيرفر المشاهدة...</h2>
-        <p style="color: #bbb;">اضغط على الزر للمشاهدة الآن</p>
-        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+        <h2 id="statusText">جاري تحضير السيرفر...</h2>
+        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
             مشاهدة الفيلم الآن
         </button>
     </div>
 
     <script>
-        function getFinalUrl() {
-            const params = new URLSearchParams(window.location.search);
-            const startApp = params.get('startapp');
-            if (startApp && startApp.startsWith('url_')) {
-                // تبديل @@ إلى / وتصحيح الرابط
-                let link = startApp.replace('url_', '').replace(/@@/g, '/');
-                // إجبار المتصفح على استخدام ://terabox.com بدلاً من telebox لتجنب الخطأ
-                link = link.replace('telebox.com', '://terabox.com').replace('lbx.zone', '://teraboxapp.com');
-                return link.startsWith('http') ? link : 'https://' + link;
-            }
-            return "https://://teraboxapp.com/s/1kltW68e"; 
-        }
+        // الرابط اللي بدك اياه
+        var finalLink = "https://lbx.zone/i/86sCQ8D";
 
         document.getElementById('showAdBtn').onclick = function() {
-            const target = getFinalUrl();
-            
-            // إجبار ظهور الإعلان
             if (typeof show_10941580 === 'function') {
-                show_10941580().then(() => {
-                    window.location.href = target;
-                }).catch(() => {
-                    window.location.href = target;
+                show_10941580().then(function() {
+                    window.location.href = finalLink;
+                }).catch(function() {
+                    window.location.href = finalLink;
                 });
             } else {
-                window.location.href = target;
+                window.location.href = finalLink;
             }
         };
     </script>
