@@ -11,9 +11,9 @@
 
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
         <h2 id="statusText">جاري فحص السيرفر...</h2>
-        <p style="color: #bbb;">اضغط على الزر للمشاهدة فوراً</p>
+        <p style="color: #bbb;">اضغط على الزر للمشاهدة في نافذة خارجية</p>
         <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
-            مشاهدة الفيلم الآن
+            مشاهدة الآن
         </button>
     </div>
 
@@ -22,29 +22,28 @@
             const params = new URLSearchParams(window.location.search);
             const startApp = params.get('startapp');
             if (startApp && startApp.startsWith('url_')) {
-                // تبديل @@ إلى / وتصحيح الرابط
                 let cleanLink = startApp.replace('url_', '').replace(/@@/g, '/');
-                if (!cleanLink.startsWith('http')) {
-                    cleanLink = 'https://' + cleanLink;
-                }
-                return cleanLink;
+                return cleanLink.startsWith('http') ? cleanLink : 'https://' + cleanLink;
             }
-            // الرابط الاحتياطي الآمن (استخدمنا lbx.zone لتجنب خطأ الحماية)
-            return "https://lbx.zone"; 
+            return "https://terabox.com"; 
         }
 
         document.getElementById('showAdBtn').onclick = function() {
             const target = getFinalUrl();
-            document.getElementById('statusText').innerText = "جاري عرض الإعلان...";
-
+            
+            // محاولة تشغيل الإعلان أولاً
             if (typeof show_10941580 === 'function') {
                 show_10941580().then(() => {
-                    window.location.href = target;
+                    // الخدعة هنا: فتح الرابط في نافذة خارجية لجهاز المستخدم
+                    window.open(target, '_system'); 
+                    window.open(target, '_blank');
                 }).catch(() => {
-                    window.location.href = target;
+                    window.open(target, '_system');
+                    window.open(target, '_blank');
                 });
             } else {
-                window.location.href = target;
+                window.open(target, '_system');
+                window.open(target, '_blank');
             }
         };
     </script>
