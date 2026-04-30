@@ -3,40 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جاري التحويل...</title>
-    <!-- كود Monetag -->
+    <title>جاري تحضير السيرفر...</title>
+    <!-- كود Monetag الأصلي الخاص بك -->
     <script src="https://libti.com" data-zone="10941580" data-cfasync="false"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
 
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
-        <h2 id="statusText">جاري تحضير السيرفر...</h2>
-        <p style="color: #bbb;">اضغط على الزر بالأسفل للبدء</p>
-        
-        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
-            مشاهدة الآن
+        <h2 id="statusText">جاري فحص السيرفر...</h2>
+        <p style="color: #bbb;">اضغط على الزر للمشاهدة فوراً</p>
+        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.4);">
+            مشاهدة الفيلم الآن
         </button>
     </div>
 
     <script>
-        // الرابط اللي بدك الناس تروح عليه (Telebox)
-        var myFinalLink = "https://lbx.zone";
+        function getFinalUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const startApp = params.get('startapp');
+            if (startApp && startApp.startsWith('url_')) {
+                // تبديل @@ إلى / ليعمل الرابط بشكل صحيح
+                let cleanLink = startApp.replace('url_', '').replace(/@@/g, '/');
+                return cleanLink.startsWith('http') ? cleanLink : 'https://' + cleanLink;
+            }
+            // الرابط الاحتياطي لـ Telebox إذا لم يرسل البوت رابطاً محدداً
+            return "https://telebox.com"; 
+        }
 
         document.getElementById('showAdBtn').onclick = function() {
-            document.getElementById('statusText').innerText = "جاري تشغيل الإعلان...";
+            const target = getFinalUrl();
+            document.getElementById('statusText').innerText = "جاري عرض الإعلان...";
 
-            // محاولة تشغيل الإعلان
             if (typeof show_10941580 === 'function') {
-                show_10941580().then(function() {
-                    // بعد الإعلان يروح للتيلي بوكس
-                    window.location.href = myFinalLink;
-                }).catch(function() {
-                    // لو فشل الإعلان يروح للتيلي بوكس
-                    window.location.href = myFinalLink;
+                show_10941580().then(() => {
+                    window.location.href = target;
+                }).catch(() => {
+                    window.location.href = target;
                 });
             } else {
-                // لو الكود ما حمل أصلاً يروح للتيلي بوكس
-                window.location.href = myFinalLink;
+                window.location.href = target;
             }
         };
     </script>
