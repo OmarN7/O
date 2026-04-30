@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جاري تحويلك للفيلم...</title>
-    <!-- كود الـ Tag من Monetag -->
-    <script src='//://libti.com' data-zone='10941580'></script>
+    <title>جاري التحويل...</title>
+    <!-- كود Monetag المطور لضمان ظهور الإعلانات -->
+    <script src="https://libti.com" data-zone="10941580" data-cfasync="false"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; height: 100vh; margin: 0;">
 
     <div style="padding: 20px; border: 1px solid #333; border-radius: 15px; background: #1e1e1e; margin: 20px;">
-        <h2>جاري تحضير سيرفر المشاهدة...</h2>
+        <h2 id="statusText">جاري تحضير السيرفر...</h2>
         <p style="color: #bbb;">اضغط على الزر بالأسفل للبدء</p>
         
-        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px;">
-            مشاهدة الفيلم الآن
+        <button id="showAdBtn" style="padding: 15px 40px; font-size: 20px; font-weight: bold; cursor: pointer; background-color: #6200ea; color: white; border: none; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+            مشاهدة الآن
         </button>
     </div>
 
     <script>
-        // الرابط الخاص بموقعك
-        var targetUrl = "https://sites.google.com/view/movieomar/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%A6%D9%8A%D8%B3%D9%8A%D8%A9";
+        // دالة لجلب الرابط من التيلجرام وتحويل المشاهد
+        function getTargetUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let encodedUrl = urlParams.get('startapp'); 
+            
+            if (encodedUrl) {
+                let cleanUrl = encodedUrl.replace('url_', '');
+                return cleanUrl.startsWith('http') ? cleanUrl : "https://" + cleanUrl;
+            }
+            // رابط التيلي بوكس الخاص بك الذي أرسلته
+            return "https://lbx.zone/i/kltW68e"; 
+        }
 
         document.getElementById('showAdBtn').onclick = function() {
-            // محاولة تشغيل الإعلان
+            const finalUrl = getTargetUrl();
+            document.getElementById('statusText').innerText = "جاري تشغيل الإعلان...";
+
             if (typeof show_10941580 === 'function') {
-                show_10941580().then(function() {
-                    window.location.href = targetUrl;
-                }).catch(function(e) {
-                    window.location.href = targetUrl;
+                show_10941580().then(() => {
+                    window.location.href = finalUrl;
+                }).catch(() => {
+                    window.location.href = finalUrl;
                 });
             } else {
-                // إذا لم يتحمل كود الإعلان يتم التحويل فوراً
-                window.location.href = targetUrl;
+                window.location.href = finalUrl;
             }
         };
     </script>
-
 </body>
 </html>
